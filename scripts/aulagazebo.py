@@ -8,11 +8,11 @@ import numpy as np
 
 
 
-Laser_msg = None
-anglemin = None
-anglemax = None
-ranges = None
-angles = None
+#Laser_msg = None
+#anglemin = None
+#anglemax = None
+#ranges = None
+#angles = None
 xr=None
 yr=None
 thr=None
@@ -24,29 +24,29 @@ def sleep(t):
         pass
  
        
-def callback_laser(msg): 
-    global Laser_msg
-    global ranges
-    Laser_msg=msg
-    ranges = Laser_msg.ranges
+#def callback_laser(msg): 
+ #   global Laser_msg
+ #   global ranges
+ #   Laser_msg=msg
+ #   ranges = Laser_msg.ranges
     
 
 def callback_odom(msg): 
     global xr
     global yr
     global thr
-    xr=msg.pose.pose.position.x;
-    yr=msg.pose.pose.position.y;
+    xr=msg.pose.pose.position.x
+    yr=msg.pose.pose.position.y
     thr = np.arctan2(2*msg.pose.pose.orientation.w*msg.pose.pose.orientation.z,1-2*msg.pose.pose.orientation.z*msg.pose.pose.orientation.z); 
 
     
 def talker():
          
     ###### SETUPPP #########
-    pub_vel = rospy.Publisher('/my_robot2/cmd_vel', Twist, queue_size = 1)
+    pub_vel = rospy.Publisher('/cmd_vel', Twist, queue_size = 1)
     rospy.init_node('aulagazebo', anonymous=False)
-    rospy.Subscriber('/scan', LaserScan, callback_laser) 
-    rospy.Subscriber('/my_robot2/odom',Odometry,callback_odom)  
+    #rospy.Subscriber('/scan', LaserScan, callback_laser) 
+    rospy.Subscriber('/odom',Odometry,callback_odom)  
     rate = rospy.Rate(10) # 10hz
     
     # Velocity Message    
@@ -60,12 +60,12 @@ def talker():
     rospy.sleep(2) 
     
     
-    # Rangefinder Angles
-    min_angle=Laser_msg.angle_min
-    max_angle=Laser_msg.angle_max
-    increment=Laser_msg.angle_increment
-    n_angles=int(round((max_angle-min_angle)/increment)+1)
-    angles=min_angle+np.array(range(n_angles))*(max_angle-min_angle)/(n_angles-1)
+   # # Rangefinder Angles
+    #min_angle=Laser_msg.angle_min
+   # max_angle=Laser_msg.angle_max
+    #increment=Laser_msg.angle_increment
+    #n_angles=int(round((max_angle-min_angle)/increment)+1)
+    #angles=min_angle+np.array(range(n_angles))*(max_angle-min_angle)/(n_angles-1)
     
 
 
@@ -74,8 +74,8 @@ def talker():
     while not rospy.is_shutdown(): 
 
         # Goal
-        xg =3
-        yg= 4
+        xg =2
+        yg= 2
         thg = -1
 
         # Gains
