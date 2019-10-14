@@ -79,9 +79,9 @@ def talker():
         thg = -1
 
         # Gains
-        kp=0.15
+        kp=0.2
         ka=0.4
-        kb=-0.15
+        kb=-0.2
 
         erro = abs(xg-xr)+abs(yg-yr)+abs(thg-thr)
         
